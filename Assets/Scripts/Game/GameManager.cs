@@ -124,8 +124,8 @@ public class GameManager : Singleton<GameManager>
             {
                 if (hit.transform.TryGetComponent<MaskPart>(out var part))
                 {
-                    // TODO inspecting currentMask/part here
-                    DialogueManager.Instance.ShowText(part.transform.name);
+                    var hint = currentMask.Analyze(part);
+                    DialogueManager.Instance.ShowText(hint);
                 } 
             }
         };

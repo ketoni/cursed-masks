@@ -167,4 +167,55 @@ public class MaskController : MonoBehaviour
 
         return relevantRuleTexts[Random.Range(0, relevantRuleTexts.Count)].text;
     }
+
+    internal string Analyze(MaskPart feature)
+    {
+        var part = feature.gameObject;
+        var model = part.GetComponent<MeshRenderer>();
+
+        // Flash the part of the mask visually
+        ModelAnimation(model.material);
+
+        return "lol";
+    }
+
+    private void ModelAnimation(Material mat)
+    {
+        // Kill any running tweens on this material
+        mat.DOKill();
+
+        // Store true original values once
+        if (!mat.HasProperty("_OrigColor"))
+        {
+            mat.SetColor("_OrigColor", mat.color);
+            mat.SetColor("_OrigEmission", mat.GetColor("_EmissionColor"));
+        }
+
+        Color ogColor = mat.GetColor("_OrigColor");
+        Color ogEmission = mat.GetColor("_OrigEmission");
+
+        var flashColor = Color.cyan * 0.5f;
+
+        mat.EnableKeyword("_EMISSION");
+        mat.color = flashColor;
+        mat.SetColor("_EmissionColor", flashColor);
+
+        float animationTime = 1.5f;
+        mat.DOColor(ogColor, animationTime);
+        mat.DOColor(ogEmission, "_EmissionColor", animationTime);
+        
+    }
+
+    internal GameObject GetModelFeature(MaskFeature feature)
+    {
+        return feature switch
+        {
+            MaskFeature.Horns => horns,
+            MaskFeature.Eyes => eyes,
+            MaskFeature.Ears => ears,
+            MaskFeature.Nose => nose,
+            MaskFeature.Mouth => mouth,
+            _ => null,
+        };
+    }
 }
