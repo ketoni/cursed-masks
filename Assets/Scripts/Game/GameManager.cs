@@ -14,6 +14,19 @@ public class GameManager : Singleton<GameManager>
 
     [InspectorReadOnly] public MaskController currentMask;
 
+    public int initialTimeTicks = 12;
+    public float timeTickDurationInSec = 15f;
+    public int timeTicksLeft;
+    public float elapsedTime;
+
+    public int initialSanity = 8;
+    public int sanity;
+
+    public int requiredKeyMaskCount;
+    public int keyMaskCount;
+    public int collectedTotalBaseValue;
+    public int collectedTotalBonusValue;
+
     [Header("Main Character")]
     [InspectorReadOnly] public GameObject mainCharacterObject;
     public List<GameObject> inventoryObjects = new ();
@@ -27,6 +40,25 @@ public class GameManager : Singleton<GameManager>
     public Dictionary<InteractType, List<Interactable>> interactableCache = new();
 
     public string PlayerName { get; private set; }
+
+    public int Sanity
+    {
+        get
+        {
+            return sanity;
+        }
+
+        set
+        {
+            sanity = value;
+            if (sanity <= 0)
+            {
+                EndGameInFailure(outOfSanity: true, !HasEnoughKeyMasks);
+            }
+        }
+    }
+
+    public bool HasEnoughKeyMasks => keyMaskCount >= requiredKeyMaskCount;
 
     private void Awake()
     {
@@ -71,8 +103,15 @@ public class GameManager : Singleton<GameManager>
         InputManager.Instance.Push(InputManager.Player);
     }
 
+    public void Update()
+    {
+        ProgressTime();
+    }
+
     IEnumerator GameLoop()
     {
+        ResetGame();
+
         // Testing mostly!
         var children = masksContainer.transform.Cast<Transform>().ToArray();
         foreach (Transform child in children)
@@ -101,10 +140,9 @@ public class GameManager : Singleton<GameManager>
             child.DOKill();
             Destroy(child.gameObject);
         }
+
         ExitGame();
     }
-
-
 
     public override void OnSceneLoad(SceneContext context)
     {
@@ -140,6 +178,48 @@ public class GameManager : Singleton<GameManager>
         PlayerName = playerName;
     }
 
+    public void ProgressTime()
+    {
+        if (currentMask.StopsTime)
+        {
+            return;
+        }
+
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= timeTickDurationInSec)
+        {
+            timeTicksLeft--;
+            elapsedTime = 0;
+
+            if (timeTicksLeft <= 0)
+            {
+                CheckEscape();
+            }
+        }
+    }
+
+    public void CheckEscape()
+    {
+        if (!HasEnoughKeyMasks)
+        {
+            EndGameInFailure(outOfSanity: false, notEnoughKeyMasks: true);
+        }
+    }
+
+    public void EndGameInFailure(bool outOfSanity, bool notEnoughKeyMasks)
+    {
+        // TODO
+    }
+
+    public void ResetGame()
+    {
+        timeTicksLeft = initialTimeTicks;
+        elapsedTime = 0;
+        sanity = initialSanity;
+        collectedTotalBaseValue = 0;
+        collectedTotalBonusValue = 0;
+    }
+
     [YarnCommand("Quit")]
     public static void ExitGame()
     {
@@ -149,5 +229,4 @@ public class GameManager : Singleton<GameManager>
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }
-
 }

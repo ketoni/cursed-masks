@@ -45,6 +45,7 @@ public class MaskController : MonoBehaviour
         {
             return curseLevel;
         }
+
         set
         {
             curseLevel = value;
@@ -60,6 +61,7 @@ public class MaskController : MonoBehaviour
     public bool CanBeCleansed { get; set; }
     public bool CanBeBlessed { get; set; }
     public bool SlowerCleansing { get; set; }
+    public bool StopsTime { get; set; }
 
     public List<(MaskEffect Effect, EffectType Type, int Intensity)> MaskEffectTypeAssignments => new()
     {
