@@ -6,8 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Mask", menuName = "Mask Stats")]
 public class MaskStats : ScriptableObject
 {
-    public bool cursed;
-
+    public bool hornsExist;
+    public bool eyesExist;
+    public bool earsExist;
+    public bool noseExists;
+    public bool mouthExists;
     public List<MaskRule> rules;
 
     // Add more...

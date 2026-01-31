@@ -47,7 +47,12 @@ public class GameManager : Singleton<GameManager>
 
         InputManager.Player.Analyze.performed += _ =>
         {
-            DialogueManager.Instance.ShowText(currentMask.AnalysisText);
+            // TODO: Get clicked feature
+            var text = currentMask.GetRandomRelevantRuleText(MaskFeature.Nose);
+            if (text != null)
+            {
+                DialogueManager.Instance.ShowText(text);
+            }
         };
     }
 
@@ -72,7 +77,7 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitUntil(() => !mask.inspecting);
 
             // Done inspeting, now the outcome
-            if (mask.stats.cursed && !mask.cleansed)
+            if (mask.CurseLevel > 0)
             {
                 // Oops!
                 DOTween.Sequence()
