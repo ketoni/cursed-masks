@@ -93,7 +93,11 @@ public class GameManager : Singleton<GameManager>
             Ray ray = Camera.main.ScreenPointToRay(screenPos / 4); // Camera space is quarter of FullHD
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                
+                if (hit.transform.TryGetComponent<MaskPart>(out var part))
+                {
+                    // TODO inspecting currentMask/part here
+                    DialogueManager.Instance.ShowText(part.transform.name);
+                } 
             }
         };
     }
