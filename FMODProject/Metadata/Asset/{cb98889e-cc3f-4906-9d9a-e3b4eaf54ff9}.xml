@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{cb98889e-cc3f-4906-9d9a-e3b4eaf54ff9}">
+		<property name="assetPath">
+			<value>sfx/text/tytti/tytti_dialogue_reaction/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e47ec382-257a-40e9-925d-8ce3b7d6c8e7}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1b0c9bb2-4e4d-4078-92e5-fd900ca13393}">
+		<property name="assetPath">
+			<value>sfx/quests/sfx_fire_woosh_3.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.64054166666666668</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e47ec382-257a-40e9-925d-8ce3b7d6c8e7}</destination>
+		</relationship>
+	</object>
+</objects>

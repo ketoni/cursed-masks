@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{49b62d7e-7d46-4a30-a6a2-af1e1e7990f5}">
+		<property name="assetPath">
+			<value>ambience_bridge_wind.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>34.971836734693881</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e47ec382-257a-40e9-925d-8ce3b7d6c8e7}</destination>
+		</relationship>
+	</object>
+</objects>

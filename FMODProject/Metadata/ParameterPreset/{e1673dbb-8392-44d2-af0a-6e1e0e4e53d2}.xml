@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{e1673dbb-8392-44d2-af0a-6e1e0e4e53d2}">
+		<property name="name">
+			<value>DistanceBridge</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd9652ca-5620-40b6-b61b-00cf538c4783}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{84271307-b35a-48c8-a2c1-403c6aa72d8a}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{84271307-b35a-48c8-a2c1-403c6aa72d8a}">
+		<property name="maximum">
+			<value>140</value>
+		</property>
+		<property name="initialValue">
+			<value>140</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

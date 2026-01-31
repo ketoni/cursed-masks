@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{52ee53fe-f223-49ec-83a2-392197c4a73b}">
+		<property name="name">
+			<value>ShuffleMaterial</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd9652ca-5620-40b6-b61b-00cf538c4783}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{01bd6022-2564-4df6-8d0f-5bb78c93e6cc}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{01bd6022-2564-4df6-8d0f-5bb78c93e6cc}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Grass</value>
+			<value>Wheat</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

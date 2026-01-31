@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{c69dad4d-f7ff-46d5-9bc5-e65f8b6379a4}">
+		<property name="name">
+			<value>Depth</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd9652ca-5620-40b6-b61b-00cf538c4783}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{f559e747-f2e6-44b2-aaa4-58879102dd9d}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{f559e747-f2e6-44b2-aaa4-58879102dd9d}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.39999997615814209</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

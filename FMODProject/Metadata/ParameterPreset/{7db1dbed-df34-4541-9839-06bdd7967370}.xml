@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{7db1dbed-df34-4541-9839-06bdd7967370}">
+		<property name="name">
+			<value>DialogueReactionEmotion</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd9652ca-5620-40b6-b61b-00cf538c4783}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{96f8106a-fd17-48d7-9109-621035e1be96}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{96f8106a-fd17-48d7-9109-621035e1be96}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>14</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Angry</value>
+			<value>Confident</value>
+			<value>Confused</value>
+			<value>Disgusted</value>
+			<value>Dismissive</value>
+			<value>Furious</value>
+			<value>Happy</value>
+			<value>Joyous</value>
+			<value>Sad</value>
+			<value>Scared</value>
+			<value>Serious</value>
+			<value>Sleepy</value>
+			<value>Surprised</value>
+			<value>Tired</value>
+		</property>
+		<property name="isHeld">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

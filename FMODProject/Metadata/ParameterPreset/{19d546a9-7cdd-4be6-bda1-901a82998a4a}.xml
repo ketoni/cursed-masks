@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{19d546a9-7cdd-4be6-bda1-901a82998a4a}">
+		<property name="name">
+			<value>Mode</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd9652ca-5620-40b6-b61b-00cf538c4783}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{3f659c74-6f1e-4f06-ad2d-2897ecfb9eb4}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{3f659c74-6f1e-4f06-ad2d-2897ecfb9eb4}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Default</value>
+			<value>Skillcheck</value>
+		</property>
+		<property name="isHeld">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
