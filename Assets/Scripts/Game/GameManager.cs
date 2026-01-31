@@ -54,6 +54,16 @@ public class GameManager : Singleton<GameManager>
                 DialogueManager.Instance.ShowText(text);
             }
         };
+
+        InputManager.Player.Click.performed += _ =>
+        {
+            Vector2 screenPos = InputManager.Player.Point.ReadValue<Vector2>();
+            Ray ray = Camera.main.ScreenPointToRay(screenPos / 4); // Camera space is quarter of FullHD
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                
+            }
+        };
     }
 
     public void Start()

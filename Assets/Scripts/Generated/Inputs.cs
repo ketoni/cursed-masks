@@ -28,6 +28,24 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             ""id"": ""30dbbfb2-ca6f-4fe2-b86c-58dec15bf6a1"",
             ""actions"": [
                 {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7106eda-8fa9-46be-801e-a736ed6479dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""Value"",
+                    ""id"": ""5d9f74bc-d5d9-4dc8-8304-7a3541eb25dc"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Take"",
                     ""type"": ""Button"",
                     ""id"": ""65bb8767-4f9f-466f-a288-635e2ab43d8e"",
@@ -377,6 +395,39 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Analyze"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63d7ecfa-59ee-4232-90a1-76358ad018db"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6e3d351-d2bf-468c-9af7-89cb115c4bad"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66229b46-fbb8-481e-81ad-96c6cb923291"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -435,6 +486,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+        m_Player_Point = m_Player.FindAction("Point", throwIfNotFound: true);
         m_Player_Take = m_Player.FindAction("Take", throwIfNotFound: true);
         m_Player_Cleanse = m_Player.FindAction("Cleanse", throwIfNotFound: true);
         m_Player_Analyze = m_Player.FindAction("Analyze", throwIfNotFound: true);
@@ -506,6 +559,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_Click;
+    private readonly InputAction m_Player_Point;
     private readonly InputAction m_Player_Take;
     private readonly InputAction m_Player_Cleanse;
     private readonly InputAction m_Player_Analyze;
@@ -517,6 +572,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     {
         private @Inputs m_Wrapper;
         public PlayerActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Click => m_Wrapper.m_Player_Click;
+        public InputAction @Point => m_Wrapper.m_Player_Point;
         public InputAction @Take => m_Wrapper.m_Player_Take;
         public InputAction @Cleanse => m_Wrapper.m_Player_Cleanse;
         public InputAction @Analyze => m_Wrapper.m_Player_Analyze;
@@ -533,6 +590,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            @Click.started += instance.OnClick;
+            @Click.performed += instance.OnClick;
+            @Click.canceled += instance.OnClick;
+            @Point.started += instance.OnPoint;
+            @Point.performed += instance.OnPoint;
+            @Point.canceled += instance.OnPoint;
             @Take.started += instance.OnTake;
             @Take.performed += instance.OnTake;
             @Take.canceled += instance.OnTake;
@@ -558,6 +621,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
+            @Click.started -= instance.OnClick;
+            @Click.performed -= instance.OnClick;
+            @Click.canceled -= instance.OnClick;
+            @Point.started -= instance.OnPoint;
+            @Point.performed -= instance.OnPoint;
+            @Point.canceled -= instance.OnPoint;
             @Take.started -= instance.OnTake;
             @Take.performed -= instance.OnTake;
             @Take.canceled -= instance.OnTake;
@@ -662,6 +731,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnClick(InputAction.CallbackContext context);
+        void OnPoint(InputAction.CallbackContext context);
         void OnTake(InputAction.CallbackContext context);
         void OnCleanse(InputAction.CallbackContext context);
         void OnAnalyze(InputAction.CallbackContext context);
