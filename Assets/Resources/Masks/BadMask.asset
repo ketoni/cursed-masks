@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BadMask
   m_EditorClassIdentifier: 
   cursed: 1
+  rules: []
