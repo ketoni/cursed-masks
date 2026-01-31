@@ -23,6 +23,15 @@ public class MaskController : MonoBehaviour
 
     [InspectorReadOnly] public bool inspecting;
     [InspectorReadOnly] public bool cleansed;
+    public GameObject ears;
+    public GameObject eyes;
+    public GameObject horns;
+    public GameObject spikes; 
+    public GameObject mouth;
+    public GameObject nose;
+    public GameObject teeth;
+    public GameObject eyeLightsContainer;
+
 
     static Vector3 inspectOffset = new(0, 7, -3);
 
