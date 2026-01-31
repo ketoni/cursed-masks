@@ -1,0 +1,7 @@
+﻿title: EffectsExample
+tags:
+---
+Old Soul: Hello! This is an example line. No effects or anything fancy.
+Tytti: Inline attributes can add [green]different[/] [red]colors[/] [wave] or different effects[/], wowie.
+Tytti: You can even [blue][shake]stack them[/] or make them [red][shake strength=2.5]stronger.[/]
+===

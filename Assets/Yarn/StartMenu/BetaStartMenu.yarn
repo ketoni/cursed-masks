@@ -1,0 +1,42 @@
+﻿title: StartMenu_Luojatar
+tags:
+---
+<<declare $playerName="">>
+<<declare $versionText="">>
+[todo]Welcome to play Twilight Ferry Beta{$versionText}![/]
+<<jump StartMenu_Consent>>
+===
+
+
+title: StartMenu_Consent
+tags:
+---
+[todo]The game is still in development and if you wish to help you can provide us analytics from your playsession, including playtime, player name and such.
+[todo]Providing this data is completely optional. Would you like to consent?
+-> AnyPositive #label:Yes
+    [todo]Thank you! <3 If you have any questions about this, please contact us through the Steam community page.
+    <<GiveAnalyticsConsent>>
+-> AnyNeutral #label:Repeat
+    <<jump StartMenu_Consent>>
+-> AnyNegative #label:No
+    Consent denied. No data will be collected.
+
+[todo]Please note that this demo does not have a save/load -function.
+[todo]The length of the whole demo is around 30-60 minutes.
+[todo]Now... *ahem*[/]
+...
+Hello?
+Is someone there?
+Please, I need your help.
+<<Pause>>
+<<EnableNameInput>>
+What is your name?
+{$playerName}! What a wonderful name.
+Sorry, but I don't have much time.
+There is someone who needs your help.
+They are not strong. But you are.
+I hope we will meet again soon.
+<<Pause>>
+<<StartMenuTransition>>
+My name is...
+===

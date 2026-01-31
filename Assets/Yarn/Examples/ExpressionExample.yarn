@@ -1,0 +1,42 @@
+﻿title: ExpressionExample
+tags:
+---
+<<set $npcName to "Someone">>
+Someone: Welcome to the 'Expression Selection' guide
+Someone: What follows is a list of options which follow the Yarn Spinner syntax.
+Someone: The game uses options to implement a selection for the player to make.
+
+-> Anger #label:Confront
+    Tytti: The selection must define options which match with the predefined Emotions.
+    Tytti: This is the expression for 'Anger', which could steer the dialogue to an unique outcome, like:
+    Tytti: Grr...!
+    Someone: Gasp! I'll run away now! 
+-> Sadness #label:Grieve
+    Tytti: Use \#label:Something after the option to define the expression label shown to the player.
+    Tytti: They should be defined for each option, and omitting them will generate a warning 
+    Tytti: Use these labels to make the expressions seem like natural reactions in the context.
+-> Curiosity // Omitting the expression label here for demonstration purposes 
+    Tytti: To help writing these selections, it's preferred to use VSCode and install 'Highlight' extension.
+    Tytti: You can find a provided highlight settings JSON from the project root under /vscode.
+-> Empathy #label:Comfort
+    Tytti: Do note that you can't use newlines in between options.
+    Someone: Darn.
+
+// The options above do not define an expression for all possible Emotions.
+// If the player would have one or more of these Emotions equipped, the expression selection
+// would would fall back to "default expressions" which are defined in DefaultExpressions.yarn 
+
+// This design currently tries to minimize the workload for the writer.
+// Although now and in the future, the more hand-written expressions there are,
+// the less likely it is for expression dialogue to feel repetitive. 
+
+// Whether it's a good idea to define an all the possible non-crucial expressions explicitly
+// would be to ask which expressions is it possible for the player to use in the dialogue in question.
+
+Someone: Anyway see ya.
+
+// If the player picks any of the options defined in this script the line above would be still shown.
+// If the player picks a default expression, the dialogue flow jumps somewhere else and the line above
+// would not be shown.
+
+===

@@ -1,0 +1,73 @@
+﻿title: ExampleQuest_Trigger
+position: -552,-576
+---
+This note is automatically triggered by some collider.
+// If we have already greeted them, the player is ignoring them
+// Bob doesn't like that, and we would jump to an alternative node
+<<jump ExampleQuest_AngryStart_Bob>>
+
+Here the NPC will hello from afar.
+// Advance quest state to 'greeted'
+===
+
+title: ExampleQuest_ExamineGate
+position: -321,-576
+---
+It's a good idea to make as many relevant things of the quest interactable.
+It adds depth to the world and to the experience.
+Bob doesn't like you ignoring them, though
+// But we should only jump to the following node if we have ignored bob previously.
+// Otherwise we might trigger the AngryStart node twice.
+// This equals to checking if the quest is started. If not:
+<<jump ExampleQuest_AngryStart_Bob>>
+===
+
+title: ExampleQuest_AngryStart_Bob
+position: -321,-392
+---
+If the player didn't talk to Bob (or interacted with the gate first).
+We can have Bob have an alternative reaction and then start the quest. 
+// Set quest state to started
+===
+
+title: ExampleQuest_Start_Bob
+position: -87,-392
+---
+// This is the node that is executed each time bob is interacted with directly.
+// If quest is already started, we jump to the guidance node instead
+<<jump ExampleQuest_Guidance_Bob>>
+
+We would see this text only if the quest is not started.
+This is due to the jump above, which would be execute otherwise.
+
+Anyway, in this node we introduce the quest and start it.
+// Set quest state to started
+===
+
+title: ExampleQuest_Guidance_Bob
+position: -87,-213
+---
+// If completion condition is met, we jump to the completion node instead
+// Note, that sometimes in nodes like this you might also check if the quest is completed,
+// if e.g. the completion condition cannot be met afterwards.
+<<jump ExampleQuest_Complete_Bob>>
+
+We are talking to Bob during the quest.
+They might remind you what you need to do.
+===
+
+title: ExampleQuest_Complete_Bob
+position: -87,-39
+---
+// If we have already completed the quest, we should be having post-quest dialogue
+<<jump ExampleQuest_PostQuest_Bob>>
+
+Quest complete!
+// Set quest state to complete
+===
+
+title: ExampleQuest_PostQuest_Bob
+position: -87,132
+---
+If talking to Bob after the quest, considering they are still around.
+===

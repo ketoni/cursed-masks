@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Hazard
+  - Goal
+  - Punchable
+  - Tytti
+  - WisplightMinigame
+  - Barrier
+  - Global FX
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - GroundLayer
+  - Water
+  - UI
+  - SeeBehind
+  - TerrainTrees
+  - Ghosting
+  - TerrainObstacles
+  - Bounds
+  - Characters
+  - Animals
+  - DarkWater
+  - FissureMask
+  - SeeThrough
+  - NoPostFX
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Tears
+    uniqueID: 3568862543
+    locked: 0
