@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{90db28e9-a944-448d-9eec-7f29f8351b93}">
+		<property name="assetPath">
+			<value>CURSED_MASKS_proj/Whispers/Whispers_L2_A.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>9.9193424036281179</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e47ec382-257a-40e9-925d-8ce3b7d6c8e7}</destination>
+		</relationship>
+	</object>
+</objects>
