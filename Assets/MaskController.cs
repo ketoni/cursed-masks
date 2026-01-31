@@ -24,7 +24,6 @@ public class MaskController : MonoBehaviour
     public List<MaskRuleTextScriptableObject> ruleTexts;
 
     [InspectorReadOnly] public bool inspecting;
-    [InspectorReadOnly] public bool cleansed;
     public GameObject ears;
     public GameObject eyes;
     public GameObject horns;
@@ -38,11 +37,28 @@ public class MaskController : MonoBehaviour
     static Vector3 inspectOffset = new(0, 7, -3);
 
     private Vector3 axis; // Testing animation axis
+    private int curseLevel;
 
-    public int CurseLevel { get; set; }
+    public int CurseLevel
+    {
+        get
+        {
+            return curseLevel;
+        }
+        set
+        {
+            curseLevel = value;
+            if (curseLevel < 0 && !CanBeBlessed)
+            {
+                curseLevel = 0;
+            }
+        }
+    }
+
     public int BonusValue { get; set; }
     public bool IsKey { get; set; }
     public bool CanBeCleansed { get; set; }
+    public bool CanBeBlessed { get; set; }
     public bool SlowerCleansing { get; set; }
 
     public List<(MaskEffect Effect, EffectType Type, int Intensity)> MaskEffectTypeAssignments => new()
@@ -85,8 +101,6 @@ public class MaskController : MonoBehaviour
         mat.color = Color.HSVToRGB(Random.value, 1f, 1f);
     
         axis = Random.onUnitSphere;
-
-        InitStats();
     }
 
     // Update is called once per frame
@@ -98,7 +112,7 @@ public class MaskController : MonoBehaviour
         } 
     }
 
-    private void InitStats()
+    public void Init()
     {
         CurseLevel = GetCombinedEffectValue(stats.rules, EffectType.Curse);
         BonusValue = GetCombinedEffectValue(stats.rules, EffectType.Value);

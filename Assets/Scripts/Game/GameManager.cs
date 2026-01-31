@@ -41,8 +41,8 @@ public class GameManager : Singleton<GameManager>
         InputManager.Player.Cleanse.performed += _ =>
         {
             // todo same
-            UIManager.Instance.CreatePopup("You cleanse the mask...");  
-            currentMask.cleansed = true;
+            UIManager.Instance.CreatePopup("You cleanse the mask...");
+            currentMask.CurseLevel--;
         };
 
         InputManager.Player.Analyze.performed += _ =>
@@ -73,6 +73,7 @@ public class GameManager : Singleton<GameManager>
             // Start inspection the mask and stop to wait until it's done
             var mask = child.GetComponent<MaskController>();
             currentMask = mask; 
+            mask.Init();
             mask.Inspect();
             yield return new WaitUntil(() => !mask.inspecting);
 
