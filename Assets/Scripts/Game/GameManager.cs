@@ -1,8 +1,7 @@
-using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
@@ -11,6 +10,10 @@ using Cuts = CutsceneManager;
 
 public class GameManager : Singleton<GameManager>
 {
+    [InspectorReadOnly] public GameObject masksContainer;
+
+    [InspectorReadOnly] public MaskController currentMask;
+
     [Header("Main Character")]
     [InspectorReadOnly] public GameObject mainCharacterObject;
     public List<GameObject> inventoryObjects = new ();
@@ -21,14 +24,6 @@ public class GameManager : Singleton<GameManager>
     public static MainCharacterMovement McMovement => McObject.GetComponent<MainCharacterMovement>();
     public static Transform McTransform => McObject.transform;
 
-    [Space]
-    [Header("Meditation")]
-    public int meditationMaxCharges = 3;
-    public int meditationCharges = 3;
-    public bool inWispfireRange = false;
-    public string wispfireTeleportLocationName;
-    public Transform wispfireTeleportLocation;
-
     public Dictionary<InteractType, List<Interactable>> interactableCache = new();
 
     public string PlayerName { get; private set; }
@@ -36,6 +31,19 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         PlayerName = "Someone";
+
+        InputManager.Player.Take.performed += _ =>
+        {
+            // todo error handling :D 
+            currentMask.inspecting = false;
+        };
+
+        InputManager.Player.Cleanse.performed += _ =>
+        {
+            // todo same
+            UIManager.Instance.CreatePopup("You cleanse the mask...");  
+            currentMask.cleansed = true;
+        };
     }
 
     public void Start()
@@ -43,55 +51,54 @@ public class GameManager : Singleton<GameManager>
         InputManager.Instance.Push(InputManager.Player);
     }
 
+    IEnumerator GameLoop()
+    {
+        // Testing mostly!
+        var children = masksContainer.transform.Cast<Transform>().ToArray();
+        foreach (Transform child in children)
+        {
+            // Move to the mask's position
+            McTransform.DOMoveX(child.position.x, duration: 1f);
+
+            // Start inspection the mask and stop to wait until it's done
+            var mask = child.GetComponent<MaskController>();
+            currentMask = mask; 
+            mask.Inspect();
+            yield return new WaitUntil(() => !mask.inspecting);
+
+            // Done inspeting, now the outcome
+            if (mask.stats.cursed && !mask.cleansed)
+            {
+                // Oops!
+                DOTween.Sequence()
+                    .Append(Cuts.Flash(Color.red, 1f));
+
+                UIManager.Instance.CreatePopup("Oops!");  
+            }
+    
+            // We don't need the object anymore
+            child.DOKill();
+            Destroy(child.gameObject);
+        }
+        ExitGame();
+    }
+
+
+
     public override void OnSceneLoad(SceneContext context)
     {
         mainCharacterObject = context.mainCharacterObject;
-        ReloadInteractableCache(context.cachedInteractables);
-    }
+        masksContainer = context.masksContainer;
+        //ReloadInteractableCache(context.cachedInteractables);
 
-    private void ReloadInteractableCache(List<Interactable> cachedInteractables)
-    {
-        // Clear previous cache and populate it with the provided list.
-        // The cache is used for fast remote event execution between Interactables
-        interactableCache.Clear();
-        foreach (var interactable in cachedInteractables)
-        {
-            if (!interactableCache.ContainsKey(interactable.type))
-            {
-                interactableCache.Add(interactable.type, new()); 
-            }
-            // Check for dopplegangers (amogus..)
-            foreach (var i in interactableCache[interactable.type])
-            {
-                if (i.name == interactable.name)
-                {
-                    Debug.LogWarning($"Interactable '{interactable.name}' has a matching {interactable.type} " +
-                    "in the loaded cache. This will most likely cause wrong remote interactions to trigger!");
-                }
-            }
-            // We add them nonetheless
-            interactableCache[interactable.type].Add(interactable);
-        }
+        StartCoroutine(GameLoop());
     }
 
     public void ChangeScene(string sceneName)
     {
-        // To-do: fade outs and ins etc.
         SceneManager.LoadScene(sceneName);
     }
 
-    // For fast access to remote execution targets
-    public Interactable GetCachedInteractable(string targetName, InteractType targetType)
-    {
-        if (!interactableCache.ContainsKey(targetType)) return null;
-        foreach (var i in interactableCache[targetType])
-        {
-            if (i.name == targetName) return i;
-        }
-        return null;
-    }
-
-    // For scene-wide searches. This should be only used as a fallback.
     public Interactable FindInteractable(string targetName, InteractType targetType)
     {
         foreach (var i in FindObjectsOfType<Interactable>(includeInactive: true))

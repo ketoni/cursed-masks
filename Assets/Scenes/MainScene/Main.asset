@@ -144,7 +144,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {x: 20, y: 50, z: 0}
   posterizationRGB:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {x: 39.2, y: 70.9, z: 11.1}
   lanternBrightness:
     m_OverrideState: 0

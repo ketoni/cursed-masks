@@ -10,6 +10,6 @@ public class SceneContext : MonoBehaviour
     [NullWarn] public YarnProject yarnProject;
     public string firstYarnNode;
     public CinemachineVirtualCameraBase mainCamera;
+    public GameObject masksContainer;
     public Light sunDirectionalLight;
-    public List<Interactable> cachedInteractables = new();
 }

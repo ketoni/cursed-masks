@@ -337,16 +337,10 @@ public class Interactable : MonoBehaviour
             Debug.LogWarning("Please use the slash format \"name/type\" in ExecuteEventOf for more efficient lookups");
         }
 
-        // First try looking up from the cache, then do a scene-wide search if not found
-        var target = GameManager.Instance.GetCachedInteractable(targetName, targetType);
+        var target = GameManager.Instance.FindInteractable(targetName, targetType);
         if (target == null)
         {
-            target = GameManager.Instance.FindInteractable(targetName, targetType);
-            if (target == null)
-            {
-                throw new ArgumentException($"Failed to find remote event target '{targetName}/{targetType}'");
-            }
-            Debug.LogWarning($"Add Interactable '{targetName}' to the scene context cache for better lookups");
+            throw new ArgumentException($"Failed to find remote event target '{targetName}/{targetType}'");
         }
 
         // Found target: Temporarily inject it into the interaction context
