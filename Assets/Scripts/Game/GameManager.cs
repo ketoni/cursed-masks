@@ -16,16 +16,19 @@ public class GameManager : Singleton<GameManager>
 
     public int initialTimeTicks = 12;
     public float timeTickDurationInSec = 15f;
-    public int timeTicksLeft;
-    public float elapsedTime;
+
+    [InspectorReadOnly] public float elapsedTime;
+    [InspectorReadOnly] public int timeTicksLeft;
 
     public int initialSanity = 8;
-    public int sanity;
 
-    public int requiredKeyMaskCount;
-    public int keyMaskCount;
-    public int collectedTotalBaseValue;
-    public int collectedTotalBonusValue;
+    [InspectorReadOnly] public int sanity;
+
+    public int requiredKeyMaskCount = 3;
+
+    [InspectorReadOnly] public int keyMaskCount;
+    [InspectorReadOnly] public int collectedTotalBaseValue;
+    [InspectorReadOnly] public int collectedTotalBonusValue;
 
     [Header("Main Character")]
     [InspectorReadOnly] public GameObject mainCharacterObject;
@@ -39,6 +42,8 @@ public class GameManager : Singleton<GameManager>
 
     public Dictionary<InteractType, List<Interactable>> interactableCache = new();
 
+    public bool GameRunning { get; private set; }
+
     public string PlayerName { get; private set; }
 
     public int Sanity
@@ -51,6 +56,9 @@ public class GameManager : Singleton<GameManager>
         set
         {
             sanity = value;
+
+            Debug.Log($"Sanity: {sanity}");
+
             if (sanity <= 0)
             {
                 EndGameInFailure(outOfSanity: true, !HasEnoughKeyMasks);
@@ -66,12 +74,22 @@ public class GameManager : Singleton<GameManager>
 
         InputManager.Player.Take.performed += _ =>
         {
+            if (!GameRunning)
+            {
+                return;
+            }
+
             // todo error handling :D 
             currentMask.inspecting = false;
         };
 
         InputManager.Player.Cleanse.performed += _ =>
         {
+            if (!GameRunning)
+            {
+                return;
+            }
+
             // todo same
             UIManager.Instance.CreatePopup("You cleanse the mask...");
             currentMask.CurseLevel--;
@@ -79,6 +97,11 @@ public class GameManager : Singleton<GameManager>
 
         InputManager.Player.Analyze.performed += _ =>
         {
+            if (!GameRunning)
+            {
+                return;
+            }
+
             // TODO: Get clicked feature
             var text = currentMask.GetRandomRelevantRuleText(MaskFeature.Nose);
             if (text != null)
@@ -105,12 +128,17 @@ public class GameManager : Singleton<GameManager>
 
     public void Update()
     {
-        ProgressTime();
+        if (GameRunning)
+        {
+            ProgressTime();
+        }
     }
 
     IEnumerator GameLoop()
     {
         ResetGame();
+
+        Debug.Log($"Initial time ticks: {timeTicksLeft}");
 
         // Testing mostly!
         var children = masksContainer.transform.Cast<Transform>().ToArray();
@@ -124,7 +152,7 @@ public class GameManager : Singleton<GameManager>
             currentMask = mask; 
             mask.Init();
             mask.Inspect();
-            yield return new WaitUntil(() => !mask.inspecting);
+            yield return new WaitUntil(() => GameRunning && !mask.inspecting);
 
             // Done inspeting, now the outcome
             if (mask.CurseLevel > 0)
@@ -133,7 +161,9 @@ public class GameManager : Singleton<GameManager>
                 DOTween.Sequence()
                     .Append(Cuts.Flash(Color.red, 1f));
 
-                UIManager.Instance.CreatePopup("Oops!");  
+                UIManager.Instance.CreatePopup("Oops!");
+
+                Sanity -= mask.CurseLevel;
             }
     
             // We don't need the object anymore
@@ -191,6 +221,8 @@ public class GameManager : Singleton<GameManager>
             timeTicksLeft--;
             elapsedTime = 0;
 
+            Debug.Log($"Time ticks left: {timeTicksLeft}");
+
             if (timeTicksLeft <= 0)
             {
                 CheckEscape();
@@ -200,15 +232,39 @@ public class GameManager : Singleton<GameManager>
 
     public void CheckEscape()
     {
+        GameRunning = false;
+
+        Debug.Log("Attempting escape...");
+
         if (!HasEnoughKeyMasks)
         {
             EndGameInFailure(outOfSanity: false, notEnoughKeyMasks: true);
         }
+        else
+        {
+            Debug.Log("SUCCESS!");
+        }
+
+        var totalScore = collectedTotalBaseValue + collectedTotalBonusValue;
+        Debug.Log($"Total base value: {collectedTotalBaseValue}");
+        Debug.Log($"Total bonus value: {collectedTotalBonusValue}");
+        Debug.Log($"Total score: {totalScore}");
     }
 
     public void EndGameInFailure(bool outOfSanity, bool notEnoughKeyMasks)
     {
         // TODO
+
+        GameRunning = false;
+
+        if (outOfSanity)
+        {
+            Debug.Log("FAILURE! Out of sanity!");
+        }
+        else if (notEnoughKeyMasks)
+        {
+            Debug.Log($"FAILURE! Only {keyMaskCount} out of {requiredKeyMaskCount} key masks collected.");
+        }
     }
 
     public void ResetGame()
@@ -218,6 +274,7 @@ public class GameManager : Singleton<GameManager>
         sanity = initialSanity;
         collectedTotalBaseValue = 0;
         collectedTotalBonusValue = 0;
+        GameRunning = true;
     }
 
     [YarnCommand("Quit")]
