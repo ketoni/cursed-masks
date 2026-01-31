@@ -1632,7 +1632,7 @@ MonoBehaviour:
   mainCharacterObject: {fileID: 2129784246}
   yarnProject: {fileID: 7545569452688597077, guid: ea1cdba5ca8a5b249bfb624aec1bf707,
     type: 3}
-  firstYarnNode: 
+  firstYarnNode: Main_Test
   mainCamera: {fileID: 1997282620}
   masksContainer: {fileID: 2007824609}
   sunDirectionalLight: {fileID: 1909227783}

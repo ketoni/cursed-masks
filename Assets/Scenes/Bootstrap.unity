@@ -2770,7 +2770,6 @@ MonoBehaviour:
   _variableStorage: {fileID: 3049002227329459652}
   dialogueViews:
   - {fileID: 1365401106}
-  - {fileID: 0}
   startNode: Start
   startAutomatically: 0
   runSelectedOptionAsLine: 0
