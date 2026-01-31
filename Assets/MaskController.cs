@@ -34,7 +34,7 @@ public class MaskController : MonoBehaviour
     public GameObject eyeLightsContainer;
 
 
-    static Vector3 inspectOffset = new(0, 7, -3);
+    static Vector3 inspectOffset = new(0, 5, -3);
 
     private Vector3 axis; // Testing animation axis
     private int curseLevel;
@@ -147,8 +147,8 @@ public class MaskController : MonoBehaviour
     {
         inspecting = true;
 
-        transform.DOLocalMove(transform.localPosition + inspectOffset, duration: 2f);
-        transform.DOScale(endValue: 3f, duration: 3f);
+        transform.DOLocalMove(transform.localPosition + inspectOffset, duration: 1f);
+        transform.DOScale(endValue: 1f, duration: 3f);
 
         Debug.Log($"You are looking at a {(CurseLevel > 0 ? "cursed" : "not cursed")} mask!");
     }

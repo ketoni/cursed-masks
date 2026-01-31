@@ -139,7 +139,7 @@ MonoBehaviour:
   active: 1
   sunIntensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   sunOrientation:
     m_OverrideState: 1
     m_Value: {x: 20, y: 50, z: 0}
