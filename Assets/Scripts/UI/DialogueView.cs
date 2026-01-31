@@ -27,6 +27,8 @@ public class DialogueView : DialogueViewBase, IControlSchema
         { "font", DialogueManager.defaultFontAttribute},
     };
 
+    public bool waitForTextChange;
+
     DialogueEffects lineEffects;
 
     /// <summary>
@@ -861,15 +863,11 @@ public class DialogueView : DialogueViewBase, IControlSchema
         // the requested speed.
         var accumulator = Time.deltaTime;
 
-        while (text.maxVisibleCharacters < characterCount)
+        while (waitForTextChange || text.maxVisibleCharacters < characterCount)
         {
             if (stopToken?.WasInterrupted ?? false)
             {
-                RevealIcon(inputIconKeyboard.GetComponent<UnityEngine.UI.Image>());
-                RevealIcon(inputIconGamepad.GetComponent<UnityEngine.UI.Image>());
-
-                PunchIcon(inputIconKeyboard);
-                PunchIcon(inputIconGamepad);
+                PunchIcons();
                 yield break;
             }
 
@@ -880,47 +878,72 @@ public class DialogueView : DialogueViewBase, IControlSchema
             }
 
             // We need to show as many letters as we have accumulated
-                // time for.
-                while (accumulator >= secondsPerLetter)
+            // time for.
+            while (accumulator >= secondsPerLetter)
+            {
+                text.maxVisibleCharacters += 1;
+
+                // Clamp the counter if we are stalling
+                // This way we don't shoot to the end of the next line change
+                if (waitForTextChange && text.maxVisibleCharacters >= characterCount)
                 {
-                    text.maxVisibleCharacters += 1;
-
-                    // ok so the change needs to be that if at any point we hit the pause position
-                    // we instead stop worrying about letters
-                    // and instead we do a normal wait for the necessary duration
-                    if (pausePositions != null && pausePositions.Count != 0)
-                    {
-                        if (text.maxVisibleCharacters == pausePositions.Peek().Item1)
-                        {
-                            var pause = pausePositions.Pop();
-                            onPauseStarted?.Invoke();
-                            yield return YarnEffects.InterruptableWait(pause.Item2, stopToken);
-                            onPauseEnded?.Invoke();
-
-                            // need to reset the accumulator
-                            accumulator = Time.deltaTime;
-                        }
-                    }
-
-                    onCharacterTyped?.Invoke();
-                    accumulator -= secondsPerLetter;
+                    text.maxVisibleCharacters = characterCount;       
+                    // Do not have these wrong way around
+                    characterCount = text.textInfo.characterCount;
                 }
-                accumulator += Time.deltaTime;
+                else
+                {
+                    onCharacterTyped?.Invoke();
+                }
 
-                yield return null;
+                // ok so the change needs to be that if at any point we hit the pause position
+                // we instead stop worrying about letters
+                // and instead we do a normal wait for the necessary duration
+                if (pausePositions != null && pausePositions.Count != 0)
+                {
+                    if (text.maxVisibleCharacters == pausePositions.Peek().Item1)
+                    {
+                        var pause = pausePositions.Pop();
+                        onPauseStarted?.Invoke();
+                        yield return YarnEffects.InterruptableWait(pause.Item2, stopToken);
+                        onPauseEnded?.Invoke();
+
+                        // need to reset the accumulator
+                        accumulator = Time.deltaTime;
+                    }
+                }
+
+                accumulator -= secondsPerLetter;
             }
+            accumulator += Time.deltaTime;
 
-            // We either finished displaying everything, or were
-            // interrupted. Either way, display everything now.
-            text.maxVisibleCharacters = characterCount;
+            yield return null;
+        }
 
+        // We either finished displaying everything, or were
+        // interrupted. Either way, display everything now.
+        text.maxVisibleCharacters = characterCount;
+
+        PunchIcons();
+
+        stopToken?.Complete();
+    }
+
+    private void PunchIcons()
+    {
+        if (!waitForTextChange)
+        {
             RevealIcon(inputIconKeyboard.GetComponent<UnityEngine.UI.Image>());
             RevealIcon(inputIconGamepad.GetComponent<UnityEngine.UI.Image>());
 
             PunchIcon(inputIconKeyboard);
             PunchIcon(inputIconGamepad);
-
-            stopToken?.Complete();
         }
     }
+
+    internal void AppendText(string analysisText)
+    {
+        textContainer.text += "\n\n" + analysisText;
+    }
+}
 

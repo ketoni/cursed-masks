@@ -9,6 +9,8 @@ public class MaskController : MonoBehaviour
     [InspectorReadOnly] public bool inspecting;
     [InspectorReadOnly] public bool cleansed; 
 
+    public string AnalysisText => "Something";
+
     static Vector3 inspectOffset = new(0, 7, -3);
 
     private Vector3 axis; // Testing animation axis

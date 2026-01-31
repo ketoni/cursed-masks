@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Analyze",
+                    "type": "Button",
+                    "id": "46098ba0-2438-4335-9e2c-a8ff37adaa10",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "b07b7853-f75d-492f-9bee-11206c35c364",
@@ -322,6 +331,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Cleanse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "190f9587-8391-47d0-8378-abd541b7e80c",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Analyze",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "070c5c93-0650-4b07-ab20-fdb699e3bbb6",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Analyze",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

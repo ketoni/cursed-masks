@@ -44,6 +44,11 @@ public class GameManager : Singleton<GameManager>
             UIManager.Instance.CreatePopup("You cleanse the mask...");  
             currentMask.cleansed = true;
         };
+
+        InputManager.Player.Analyze.performed += _ =>
+        {
+            DialogueManager.Instance.ShowText(currentMask.AnalysisText);
+        };
     }
 
     public void Start()

@@ -9,7 +9,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject popupPrefab;
     public GameObject popupParentObject;
 
-    public float DefaultTypewriterSpeed;
+    //public float DefaultTypewriterSpeed;
 
     private void Start()
     {

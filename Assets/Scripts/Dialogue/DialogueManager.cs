@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -421,5 +422,23 @@ public class DialogueManager : Singleton<DialogueManager>
         Cuts.Sequence(disableControls: false)
             .Append(Cuts.Shake())
             .Join(Cuts.ShakeHUD());
+    }
+
+    internal void ShowText(string analysisText)
+    {
+        // First stop normal dialogue, then start custom dialogue,
+        // which stops to wait for lines to change
+
+        //StopDialogue(); we should not need this since analysis can only be done outside normal dialogue?
+        dialogueView.waitForTextChange = true;
+        canHaveDialogueControls = false;
+
+        // Future calls should simply advance the currently running dialogue
+        if (!IsDialogueRunning)
+        {
+            StartDialogue("Analysis_Base");
+        }
+        dialogueView.AppendText(analysisText);
+        // forcibly take away dialogue controls until we are done?
     }
 }

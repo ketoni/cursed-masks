@@ -46,6 +46,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Analyze"",
+                    ""type"": ""Button"",
+                    ""id"": ""46098ba0-2438-4335-9e2c-a8ff37adaa10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""b07b7853-f75d-492f-9bee-11206c35c364"",
@@ -346,6 +355,28 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Cleanse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""190f9587-8391-47d0-8378-abd541b7e80c"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Analyze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""070c5c93-0650-4b07-ab20-fdb699e3bbb6"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Analyze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -406,6 +437,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Take = m_Player.FindAction("Take", throwIfNotFound: true);
         m_Player_Cleanse = m_Player.FindAction("Cleanse", throwIfNotFound: true);
+        m_Player_Analyze = m_Player.FindAction("Analyze", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
@@ -476,6 +508,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Take;
     private readonly InputAction m_Player_Cleanse;
+    private readonly InputAction m_Player_Analyze;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
@@ -486,6 +519,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public PlayerActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Take => m_Wrapper.m_Player_Take;
         public InputAction @Cleanse => m_Wrapper.m_Player_Cleanse;
+        public InputAction @Analyze => m_Wrapper.m_Player_Analyze;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
@@ -505,6 +539,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Cleanse.started += instance.OnCleanse;
             @Cleanse.performed += instance.OnCleanse;
             @Cleanse.canceled += instance.OnCleanse;
+            @Analyze.started += instance.OnAnalyze;
+            @Analyze.performed += instance.OnAnalyze;
+            @Analyze.canceled += instance.OnAnalyze;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -527,6 +564,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Cleanse.started -= instance.OnCleanse;
             @Cleanse.performed -= instance.OnCleanse;
             @Cleanse.canceled -= instance.OnCleanse;
+            @Analyze.started -= instance.OnAnalyze;
+            @Analyze.performed -= instance.OnAnalyze;
+            @Analyze.canceled -= instance.OnAnalyze;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -624,6 +664,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     {
         void OnTake(InputAction.CallbackContext context);
         void OnCleanse(InputAction.CallbackContext context);
+        void OnAnalyze(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
