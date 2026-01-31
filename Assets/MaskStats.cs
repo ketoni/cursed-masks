@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Mask", menuName = "Mask Stats")]
 public class MaskStats : ScriptableObject
 {
+    public int baseValue;
     public bool hornsExist;
     public bool eyesExist;
     public bool earsExist;
@@ -46,7 +47,7 @@ public enum MaskEffect
     Cheaper,
     Valuable,
     Valuabler,
-    DoublePrice,
+    PriceMultiplier,
     Key,
     NegateKey,
     NegateBless,

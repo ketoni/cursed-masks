@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rule:
     first: 1
-    second: 2
-    firstFeatureExists: 0
-    secondFeatureExists: 0
     requireSecond: 1
+    second: 2
     effect: 10
-  text: If this mask has horns and eyes, it's a key
+  text: If this mask has horns and eyes, it's a key.

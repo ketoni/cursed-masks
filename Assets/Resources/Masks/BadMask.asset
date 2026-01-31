@@ -12,5 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385b0af78ba755c4081913ab83cb0d99, type: 3}
   m_Name: BadMask
   m_EditorClassIdentifier: 
-  cursed: 1
-  rules: []
+  baseValue: 20
+  hornsExist: 0
+  eyesExist: 0
+  earsExist: 0
+  noseExists: 0
+  mouthExists: 0
+  rules:
+  - first: 1
+    requireSecond: 1
+    second: 3
+    effect: 2
+  - first: 3
+    requireSecond: 1
+    second: 5
+    effect: 4

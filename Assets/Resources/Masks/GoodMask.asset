@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385b0af78ba755c4081913ab83cb0d99, type: 3}
   m_Name: GoodMask
   m_EditorClassIdentifier: 
-  cursed: 0
+  baseValue: 10
+  hornsExist: 0
+  eyesExist: 0
+  earsExist: 0
+  noseExists: 0
+  mouthExists: 0
+  rules: []

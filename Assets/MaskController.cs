@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static MaskController;
 
 public class MaskController : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class MaskController : MonoBehaviour
         Curse,
         Value,
         Key,
-        Cleanse
+        Cleanse,
+        Special
     }
 
     public MaskStats stats;
@@ -38,11 +40,33 @@ public class MaskController : MonoBehaviour
     private Vector3 axis; // Testing animation axis
 
     public int CurseLevel { get; set; }
-    public int Value { get; set; }
     public int BonusValue { get; set; }
     public bool IsKey { get; set; }
     public bool CanBeCleansed { get; set; }
     public bool SlowerCleansing { get; set; }
+
+    public List<(MaskEffect Effect, EffectType Type, int Intensity)> MaskEffectTypeAssignments => new()
+    {
+        (MaskEffect.AddTime, EffectType.Time, 5),
+        (MaskEffect.AddSanity, EffectType.Sanity, 3),
+        (MaskEffect.LowCurse, EffectType.Curse, 1),
+        (MaskEffect.MedCurse, EffectType.Curse, 2),
+        (MaskEffect.HighCurse, EffectType.Curse, 3),
+        (MaskEffect.Cheap, EffectType.Value, -1),
+        (MaskEffect.Cheaper, EffectType.Value, -2),
+        (MaskEffect.Valuable, EffectType.Value, 1),
+        (MaskEffect.Valuabler, EffectType.Value, 2),
+        (MaskEffect.PriceMultiplier, EffectType.Value, 2),
+        (MaskEffect.Key, EffectType.Key, 1),
+        (MaskEffect.NegateKey, EffectType.Key, -1),
+        (MaskEffect.NegateBless, EffectType.Special, 0),
+        (MaskEffect.RepeatCurse, EffectType.Curse, 0),
+        (MaskEffect.CollectedCountValue, EffectType.Special, 0),
+        (MaskEffect.ClockStop, EffectType.Time, 0),
+        (MaskEffect.NoCleanse, EffectType.Cleanse, 0),
+        (MaskEffect.SlowCleanse, EffectType.Cleanse, 0),
+        (MaskEffect.Possessed, EffectType.Special, 0)
+    };
 
     void Awake()
     {
@@ -61,6 +85,8 @@ public class MaskController : MonoBehaviour
         mat.color = Color.HSVToRGB(Random.value, 1f, 1f);
     
         axis = Random.onUnitSphere;
+
+        InitStats();
     }
 
     // Update is called once per frame
@@ -75,33 +101,30 @@ public class MaskController : MonoBehaviour
     private void InitStats()
     {
         CurseLevel = GetCombinedEffectValue(stats.rules, EffectType.Curse);
+        BonusValue = GetCombinedEffectValue(stats.rules, EffectType.Value);
+        IsKey = GetCombinedEffectValue(stats.rules, EffectType.Key) > 0;
         CanBeCleansed = true;
     }
 
     private int GetCombinedEffectValue(List<MaskRule> rules, EffectType effectType)
     {
-        foreach (MaskRule rule in rules)
-        {
-            switch (effectType)
-            {
-                case EffectType.Time:
-                    break;
-                case EffectType.Sanity:
-                    break;
-                case EffectType.Curse:
-                    break;
-                case EffectType.Value:
-                    break;
-                case EffectType.Key:
-                    break;
-                case EffectType.Cleanse:
-                    break;
-                default:
-                    break;
-            }
-        }
+        /*
+        var relevantRules = rules
+            .Where(r => MaskEffectTypeAssignments.Any(a => a.Effect == r.effect)).ToList();
+        */
 
-        return 0;
+        /*
+        var ruleAssignments = MaskEffectTypeAssignments
+            .Where(a => a.Type == effectType && rules.Any(r => r.effect == a.Effect)).ToList();
+        */
+
+         var ruleAssignments =
+            rules.Select(r =>
+                MaskEffectTypeAssignments.FirstOrDefault(a => a.Type == effectType && a.Effect == r.effect)).ToList();
+
+        // TODO: Handle special cases
+
+        return ruleAssignments.Sum(a => a.Intensity);
     }
 
     internal void Inspect()

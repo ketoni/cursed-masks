@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Rule1Text 1
   m_EditorClassIdentifier: 
   rule:
-    first: 1
-    second: 2
-    firstFeatureExists: 0
-    secondFeatureExists: 0
-    requireSecond: 1
-    effect: 10
-  text: If this mask has horns and eyes, it's a key
+    first: 3
+    requireSecond: 0
+    second: 5
+    effect: 4
+  text: If this mask has ears and a mouth, it's very cursed.

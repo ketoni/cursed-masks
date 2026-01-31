@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -658,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -739,12 +741,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373909115}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &464736400 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4613621989855859312, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &485884766
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,18 +807,6 @@ Transform:
   - {fileID: 1262618878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &672613416 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8481154387359171079, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &675430766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2853914532108058325, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &723588865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -1408,6 +1393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -1537,6 +1523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -1666,6 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2d651847487821040b376fec237a14a5, type: 2}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -1922,12 +1910,6 @@ Transform:
   - {fileID: 268652836}
   m_Father: {fileID: 1664573918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1471547126 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7229613781406683684, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1565402855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,17 +2098,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1c949811709454e8cc0dc5fac7ccd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 11400000, guid: 2d651847487821040b376fec237a14a5, type: 2}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
-  ears: {fileID: 464736400}
-  eyes: {fileID: 1471547126}
-  horns: {fileID: 675430766}
-  spikes: {fileID: 2076059363}
-  mouth: {fileID: 1705328005}
-  nose: {fileID: 2004943193}
-  teeth: {fileID: 672613416}
-  eyeLightsContainer: {fileID: 1460207071}
+  ears: {fileID: 0}
+  eyes: {fileID: 0}
+  horns: {fileID: 0}
+  spikes: {fileID: 0}
+  mouth: {fileID: 0}
+  nose: {fileID: 0}
+  teeth: {fileID: 0}
+  eyeLightsContainer: {fileID: 0}
 --- !u!4 &1664573918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3979336713739890464, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
@@ -2181,6 +2164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 3fab161446693894d9ec15782146240d, type: 2}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -2262,12 +2246,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691051493}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1705328005 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5511513161753025853, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1841104394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,6 +2541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 3fab161446693894d9ec15782146240d, type: 2}
+  ruleTexts: []
   inspecting: 0
   cleansed: 0
   ears: {fileID: 0}
@@ -2732,12 +2711,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1964127432}
---- !u!1 &2004943193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1193663126565674451, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2007824609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,12 +2751,6 @@ Transform:
   - {fileID: 373909116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2076059363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2714755216331442743, guid: a0d01ded1cb9f6e49bb7d8bad64770d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 46067607675935787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2129784246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6724566520953868580, guid: 6a7dc801393bdc14894daed3a32d7153,
