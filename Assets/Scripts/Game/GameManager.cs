@@ -91,7 +91,6 @@ public class GameManager : Singleton<GameManager>
                 return;
             }
 
-            // todo error handling :D 
             currentMask.inspecting = false;
         };
 
@@ -102,25 +101,19 @@ public class GameManager : Singleton<GameManager>
                 return;
             }
 
-            // todo same
             UIManager.Instance.CreatePopup("You cleanse the mask...");
+            AudioManager.Instance.PlaySound("event:/SFX/Player/cleanseMask");
             currentMask.CurseLevel--;
         };
 
-        //InputManager.Player.Analyze.performed += _ =>
-        //{
-        //    if (!GameRunning)
-        //    {
-        //        return;
-        //    }
+        InputManager.Player.Abandon.performed += _ =>
+        {
 
-        //    // TODO: Get clicked feature
-        //    var text = currentMask.GetRandomRelevantRuleText(MaskFeature.Nose);
-        //    if (text != null)
-        //    {
-        //        DialogueManager.Instance.ShowText(text);
-        //    }
-        //};
+            currentMask.inspecting = false;
+            currentMask.discarded = true;
+            AudioManager.Instance.PlaySound("event:/SFX/Interactions/sfx_door_break");
+            UIManager.Instance.CreatePopup("You destroy the mask...");
+        };
 
         InputManager.Player.Click.performed += _ =>
         {
@@ -172,17 +165,30 @@ public class GameManager : Singleton<GameManager>
             mask.Inspect();
             yield return new WaitUntil(() => GameRunning && !mask.inspecting);
 
-            // Done inspeting, now the outcome
-            if (mask.CurseLevel > 0)
+            if (mask.discarded)
             {
-                // Oops!
-                DOTween.Sequence()
-                    .Append(Cuts.Flash(Color.red, 1f));
-
-                UIManager.Instance.CreatePopup("Oops!");
-
-                Sanity -= mask.CurseLevel;
+                // thrashed
             }
+            else
+            {
+                // taken
+                if (mask.CurseLevel > 0)
+                {
+                    DOTween.Sequence()
+                        .Append(Cuts.Flash(Color.red, 1f));
+
+                    UIManager.Instance.CreatePopup("There was a curse on the mask!");
+                    AudioManager.Instance.PlaySound("event:/SFX/Player/cursedMaskChosen");
+                    Sanity -= mask.CurseLevel;
+                }
+                else
+                {
+                    // all good
+                    AudioManager.Instance.PlaySound("event:/SFX/Player/chooseMask");
+                    UIManager.Instance.CreatePopup("Nice...");
+                }
+            }
+
     
             // We don't need the object anymore
             child.DOKill();

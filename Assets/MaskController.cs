@@ -25,6 +25,7 @@ public class MaskController : MonoBehaviour
     public List<MaskRuleTextScriptableObject> ruleTexts;
 
     [InspectorReadOnly] public bool inspecting;
+    [InspectorReadOnly] public bool discarded;
     public GameObject ears;
     public GameObject eyes;
     public GameObject horns;
