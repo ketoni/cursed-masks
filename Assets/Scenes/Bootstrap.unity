@@ -2865,11 +2865,12 @@ MonoBehaviour:
   timeTicksLeft: 0
   initialSanity: 8
   sanity: 0
-  requiredKeyMaskCount: 0
+  requiredKeyMaskCount: 3
   keyMaskCount: 0
   collectedTotalBaseValue: 0
   collectedTotalBonusValue: 0
-  baseMasks: []
+  baseMasks:
+  - {fileID: 6337487774371784106, guid: a0d01ded1cb9f6e49bb7d8bad64770d8, type: 3}
   rulesPerMask: 12
   mainCharacterObject: {fileID: 0}
   inventoryObjects: []

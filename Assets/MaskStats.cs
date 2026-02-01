@@ -29,6 +29,9 @@ public struct MaskRule
 
     public MaskFeature second;
     public MaskEffect effect;
+    public string text;
+
+    public bool RequireJustFirst => second == MaskFeature.None; 
 }
 
 public enum MaskFeature

@@ -240,24 +240,34 @@ public class GameManager : Singleton<GameManager>
             // - Part X and part Y must not be the same
             // - Part X is always required, part Y may be disallowed
 
-            var defaultKeyRule = new MaskRule();
-            defaultKeyRule.first = (MaskFeature)Random.Range(1, 5);
-            defaultKeyRule.second = (MaskFeature)Random.Range(0, 5);
-            defaultKeyRule.requireSecond = Utils.FiftyFifty();
-            defaultKeyRule.effect = MaskEffect.Key;
-            maskRules.Add((maskId, defaultKeyRule));
+            maskRules.Add((maskId, GenerateRule(true)));
 
             for (int i = 1; i < rulesPerMask; i++)
             {
-                var newRule = new MaskRule();
-                newRule.first = (MaskFeature)Random.Range(1, 5);
-                newRule.second = (MaskFeature)Random.Range(0, 5);
-                newRule.requireSecond = Utils.FiftyFifty();
-                newRule.effect = (MaskEffect)Random.Range(0, 8); // For now, only the most basic effects are used
-
-                maskRules.Add((maskId, newRule));
+                maskRules.Add((maskId, GenerateRule(false)));
             }
         }
+    }
+
+    private MaskRule GenerateRule(bool forceKeyRule)
+    {
+        var rule = new MaskRule();
+        rule.first = (MaskFeature)Random.Range(1, 5);
+        rule.second = (MaskFeature)Random.Range(0, 5);
+
+        if (rule.second == rule.first)
+        {
+            rule.second = MaskFeature.None;
+        }
+
+        rule.requireSecond = Utils.FiftyFifty();
+
+        // For now, only the most basic effects are used
+        rule.effect = forceKeyRule ? MaskEffect.Key : (MaskEffect)Random.Range(0, 8);
+
+        rule.text = BuildRuleText(rule);
+
+        return rule;
     }
 
     //private MaskController GenerateMask()
@@ -319,20 +329,30 @@ public class GameManager : Singleton<GameManager>
         }
 
         var randomRule = relevantRules[Random.Range(0, relevantRules.Count)];
-        return BuildRuleText(randomRule.Rule);
+        return randomRule.Rule.text;
     }
 
     private string BuildRuleText(MaskRule rule)
     {
         var ruleText = new StringBuilder();
-        ruleText.Append($"If {rule.first} and ");
 
-        if (!rule.requireSecond)
+        if (rule.RequireJustFirst)
         {
-            ruleText.Append($"not ");
+            ruleText.Append($"If {rule.first}, ");
+        }
+        else
+        {
+            ruleText.Append($"If {rule.first} and ");
+
+            if (!rule.requireSecond)
+            {
+                ruleText.Append($"no ");
+            }
+
+            ruleText.Append($"{rule.second}, ");
         }
 
-        ruleText.AppendLine($"{rule.second}, {rule.effect}");
+        ruleText.AppendLine($"{rule.effect}");
 
         return ruleText.ToString();
     }
