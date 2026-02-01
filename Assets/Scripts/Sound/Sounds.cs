@@ -60,7 +60,7 @@ namespace Sounds
 
         public static class Text
         {
-            public static string Typewriter => "event:/SFX/Text/general";
+            public static string Typewriter => "event:/SFX/Text/Tablet_text";
         }
     }
 }
