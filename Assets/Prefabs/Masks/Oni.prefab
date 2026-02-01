@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1c949811709454e8cc0dc5fac7ccd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1
   stats: {fileID: 0}
   ruleTexts: []
   inspecting: 0

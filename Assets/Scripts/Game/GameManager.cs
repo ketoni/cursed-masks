@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,9 @@ public class GameManager : Singleton<GameManager>
     public int requiredKeyMaskCount = 3;
 
     [InspectorReadOnly] public int keyMaskCount;
+
+    public TextMeshProUGUI baseValueText;
+
     [InspectorReadOnly] public int collectedTotalBaseValue;
     [InspectorReadOnly] public int collectedTotalBonusValue;
 
@@ -163,6 +167,7 @@ public class GameManager : Singleton<GameManager>
             // Start inspection the mask and stop to wait until it's done
             var mask = child.GetComponent<MaskController>();
             currentMask = mask;
+            baseValueText.text = $"Mask base value: {(mask.id + 1) * 1000} MuskDollars";
             mask.Init();
             mask.Inspect();
             yield return new WaitUntil(() => GameRunning && !mask.inspecting);
