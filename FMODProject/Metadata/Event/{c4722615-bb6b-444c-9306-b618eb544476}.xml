@@ -61,7 +61,7 @@
 			<destination>{7f6a2342-ad21-43a2-ac12-fff674baaf22}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{66d366b1-a97c-41c1-b819-2f693db6adeb}</destination>
+			<destination>{81feba84-7290-4654-9983-3814c516d8da}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{b4c776b6-923d-469e-8719-27c41d3b9abc}" />
@@ -146,6 +146,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{de2d7fac-e418-44b8-99bf-6b930ec77479}">
+		<property name="volume">
+			<value>3.5</value>
+		</property>
 		<property name="name">
 			<value>Whispers_1</value>
 		</property>
@@ -186,6 +189,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{1481ad6a-c091-4d78-aa29-48d742fbb4f5}">
+		<property name="volume">
+			<value>3.5</value>
+		</property>
 		<property name="name">
 			<value>Whispers_2</value>
 		</property>
@@ -223,6 +229,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{35cb9a57-1f48-491a-aa0b-766c21af2139}">
+		<property name="volume">
+			<value>3.5</value>
+		</property>
 		<property name="name">
 			<value>Whispers_3</value>
 		</property>
