@@ -122,7 +122,8 @@ public class GameManager : Singleton<GameManager>
             Ray ray = Camera.main.ScreenPointToRay(screenPos / 4); // Camera space is quarter of FullHD
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.transform.TryGetComponent<MaskPart>(out var part))
+                if (hit.transform.TryGetComponent<MaskPart>(out var part)
+                    || hit.transform.parent.TryGetComponent(out part))
                 {
                     var hint = AnalyzeAndGetText(currentMask, part);
                     var maskName = currentMask.name;
@@ -340,10 +341,31 @@ public class GameManager : Singleton<GameManager>
     private string AnalyzeAndGetText(MaskController mask, MaskPart part)
     {
         var analyzedFeature = part.part;
-        var model = part.GetComponent<MeshRenderer>();
+        var models = new List<MeshRenderer>();
+
+        var hasRenderer = part.TryGetComponent<MeshRenderer>(out var model);
+        if (hasRenderer)
+        {
+            models.Add(model);
+        }
+        else
+        {
+            var childRends = part.GetComponentsInChildren<MeshRenderer>();
+            if (childRends != null || childRends.Length > 0)
+            {
+                models.AddRange(childRends);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
 
         // Flash the part of the mask visually
-        mask.ModelAnimation(model.material);
+        foreach (var individualModel in models)
+        {
+            mask.ModelAnimation(individualModel.material);
+        }
 
         var text = GetRandomRelevantRuleText(mask, analyzedFeature);
         return text == null

@@ -3011,7 +3011,10 @@ MonoBehaviour:
   collectedTotalBonusValue: 0
   baseMasks:
   - {fileID: 6337487774371784106, guid: a0d01ded1cb9f6e49bb7d8bad64770d8, type: 3}
+  - {fileID: 6337487774371784106, guid: dbfe47bc6ee5d694e80ef3b8c5fc30bb, type: 3}
+  - {fileID: 6337487774371784106, guid: 53878e4a9a2ac5d4b8aaea0858b35831, type: 3}
   rulesPerMask: 12
+  initialMaskPosition: {x: 0, y: -12.5, z: 28.5}
   mainCharacterObject: {fileID: 0}
   inventoryObjects: []
 --- !u!1 &3041473218445087563

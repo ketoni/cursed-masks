@@ -32,7 +32,7 @@ public class MaskController : MonoBehaviour
     public GameObject nose;
     public GameObject eyeLightsContainer;
 
-    static Vector3 inspectOffset = new(0, 1, -3);
+    static Vector3 inspectOffset = new(0, 3.5f, -3);
 
     private Vector3 axis; // Testing animation axis
     private int curseLevel;
