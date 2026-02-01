@@ -165,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 4305710994192522374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 544.45996, y: -24.438879, z: 395.90448}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.37, y: 0.37, z: 0.37}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -187,7 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 8917973041810904741}

@@ -22,7 +22,6 @@ public class MaskController : MonoBehaviour
 
     public int id;
     public MaskStats stats;
-    public List<MaskRuleTextScriptableObject> ruleTexts;
 
     [InspectorReadOnly] public bool inspecting;
     [InspectorReadOnly] public bool discarded;
@@ -33,7 +32,7 @@ public class MaskController : MonoBehaviour
     public GameObject nose;
     public GameObject eyeLightsContainer;
 
-    static Vector3 inspectOffset = new(0, 5, -3);
+    static Vector3 inspectOffset = new(0, 1, -3);
 
     private Vector3 axis; // Testing animation axis
     private int curseLevel;
@@ -109,15 +108,6 @@ public class MaskController : MonoBehaviour
         axis = Random.onUnitSphere;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (inspecting)
-        {
-            transform.Rotate(axis, 10f * Time.deltaTime, Space.World);
-        } 
-    }
-
     public void Init()
     {
         CurseLevel = GetCombinedEffectValue(stats.rules, EffectType.Curse);
@@ -155,24 +145,6 @@ public class MaskController : MonoBehaviour
         transform.DOScale(endValue: 1f, duration: 3f);
 
         Debug.Log($"You are looking at a {(CurseLevel > 0 ? "cursed" : "not cursed")} mask!");
-    }
-
-    public string GetRandomRelevantRuleText(MaskFeature scannedFeature)
-    {
-        if (scannedFeature == MaskFeature.None)
-        {
-            return null;
-        }
-
-        var relevantRuleTexts = ruleTexts
-            .Where(r => r.rule.first == scannedFeature || r.rule.second == scannedFeature).ToList();
-
-        if (relevantRuleTexts == null || relevantRuleTexts.Count == 0)
-        {
-            return null;
-        }
-
-        return relevantRuleTexts[Random.Range(0, relevantRuleTexts.Count)].text;
     }
 
     public void ModelAnimation(Material mat)

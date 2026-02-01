@@ -42,6 +42,8 @@ public class GameManager : Singleton<GameManager>
 
     [InspectorReadOnly] public List<(int MaskId, MaskRule Rule)> maskRules;
 
+    public Vector3 initialMaskPosition = new Vector3(0f, -12.5f, 28.5f);
+
     [Header("Main Character")]
     [InspectorReadOnly] public GameObject mainCharacterObject;
     public List<GameObject> inventoryObjects = new ();
@@ -138,7 +140,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Update()
     {
-        if (GameRunning)
+        if (GameRunning && currentMask != null)
         {
             ProgressTime();
         }
@@ -150,18 +152,20 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log($"Initial time ticks: {timeTicksLeft}");
 
-        var maskX = 0;
-        var maskDeltaX = 5;
+        var maskX = masksContainer.transform.position.x;
+        var movedDist = 0;
+        var maskDeltaX = 3;
 
         while (GameRunning)
         {
             var mask = GenerateMask();
+            currentMask = mask;
+            mask.transform.position += new Vector3(movedDist, 0, 0);
 
             // Move to the mask's position
             McTransform.DOMoveX(maskX, duration: 1f);
 
             // Start inspection the mask and stop to wait until it's done
-            currentMask = mask;
             baseValueText.text = $"Mask base value: {(mask.id + 1) * 1000} MuskDollars";
             mask.Init();
             mask.Inspect();
@@ -196,6 +200,7 @@ public class GameManager : Singleton<GameManager>
             Destroy(mask.gameObject);
 
             maskX += maskDeltaX;
+            movedDist += maskDeltaX;
         }
 
         ExitGame();
@@ -286,7 +291,7 @@ public class GameManager : Singleton<GameManager>
 
     private MaskController GenerateMask()
     {
-        var numbers = new List<int> { 0, 1, 2, 3, 4 };
+        var numbers = new List<int> { 1, 2, 3, 4, 5 };
         var maxNum = numbers.Count;
         var numbersInRandOrder = new List<int>(maxNum);
 
@@ -304,7 +309,8 @@ public class GameManager : Singleton<GameManager>
 
         for (int i = 0; i < partsNotIncludedCount; i++)
         {
-            mask.GetModelFeature((MaskFeature)numbersInRandOrder[i]).SetActive(false);
+            var part = mask.GetModelFeature((MaskFeature)numbersInRandOrder[i]);
+            part.SetActive(false);
         }
 
         return mask;
