@@ -424,7 +424,7 @@ public class DialogueManager : Singleton<DialogueManager>
             .Join(Cuts.ShakeHUD());
     }
 
-    internal void ShowText(string analysisText)
+    internal void ShowText(string maskName, string hint)
     {
         // First stop normal dialogue, then start custom dialogue,
         // which stops to wait for lines to change
@@ -437,8 +437,9 @@ public class DialogueManager : Singleton<DialogueManager>
         if (!IsDialogueRunning)
         {
             StartDialogue("Analysis_Base");
+            dialogueView.AppendText("Model: " + maskName);
         }
-        dialogueView.AppendText(analysisText);
+        dialogueView.AppendText(hint);
         // forcibly take away dialogue controls until we are done?
     }
 }
