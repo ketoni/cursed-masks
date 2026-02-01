@@ -1667,14 +1667,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Click to analyze mask parts
+  m_text: 'Click: Analyze mask
 
-    ?: Take mask
+    Space: Cleanse (Reduce curse)
 
-    ?: Cleanse curses
+    Enter: Take
+    mask
 
-    ?:
-    Discard'
+    Q: Abandon mask'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 236e6555251e1b94c8f270f70930bb40, type: 2}
   m_sharedMaterial: {fileID: -3032185004073819083, guid: 236e6555251e1b94c8f270f70930bb40,
