@@ -21,7 +21,12 @@ public class MaskStats : ScriptableObject
 public struct MaskRule
 {
     public MaskFeature first;
+
+    /// <summary>
+    /// If the second part is not required, it is disallowed.
+    /// </summary>
     public bool requireSecond;
+
     public MaskFeature second;
     public MaskEffect effect;
 }
@@ -38,8 +43,7 @@ public enum MaskFeature
 
 public enum MaskEffect
 {
-    AddTime,
-    AddSanity,
+    Key,
     LowCurse,
     MedCurse,
     HighCurse,
@@ -48,7 +52,8 @@ public enum MaskEffect
     Valuable,
     Valuabler,
     PriceMultiplier,
-    Key,
+    AddTime,
+    AddSanity,
     NegateKey,
     NegateBless,
     RepeatCurse,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,11 @@ public class GameManager : Singleton<GameManager>
     [InspectorReadOnly] public int keyMaskCount;
     [InspectorReadOnly] public int collectedTotalBaseValue;
     [InspectorReadOnly] public int collectedTotalBonusValue;
+
+    public List<MaskController> baseMasks;
+    public int rulesPerMask = 12;
+
+    [InspectorReadOnly] public List<(int MaskId, MaskRule Rule)> maskRules;
 
     [Header("Main Character")]
     [InspectorReadOnly] public GameObject mainCharacterObject;
@@ -153,7 +159,7 @@ public class GameManager : Singleton<GameManager>
 
             // Start inspection the mask and stop to wait until it's done
             var mask = child.GetComponent<MaskController>();
-            currentMask = mask; 
+            currentMask = mask;
             mask.Init();
             mask.Inspect();
             yield return new WaitUntil(() => GameRunning && !mask.inspecting);
@@ -211,6 +217,52 @@ public class GameManager : Singleton<GameManager>
         DialogueManager.Instance.SetVariable("$playerName", playerName);
         PlayerName = playerName;
     }
+
+    private void GenerateRuleSet()
+    {
+        if (maskRules == null)
+        {
+            maskRules = new List<(int, MaskRule)>(rulesPerMask * baseMasks.Count);
+        }
+        else
+        {
+            maskRules.Clear();
+        }
+
+        for (int maskId = 0; maskId < baseMasks.Count; maskId++)
+        {
+            // The rules for generating mask rules:
+            // - At least one key rule per base mask
+            // - Only one rule per part X & part Y combo (?)
+            // - Part X and part Y must not be the same
+            // - Part X is always required, part Y may be disallowed
+
+            var defaultKeyRule = new MaskRule();
+            defaultKeyRule.first = (MaskFeature)Random.Range(1, 5);
+            defaultKeyRule.second = (MaskFeature)Random.Range(0, 5);
+            defaultKeyRule.requireSecond = Utils.FiftyFifty();
+            defaultKeyRule.effect = MaskEffect.Key;
+            maskRules.Add((maskId, defaultKeyRule));
+
+            for (int i = 1; i < rulesPerMask; i++)
+            {
+                var newRule = new MaskRule();
+                newRule.first = (MaskFeature)Random.Range(1, 5);
+                newRule.second = (MaskFeature)Random.Range(0, 5);
+                newRule.requireSecond = Utils.FiftyFifty();
+                newRule.effect = (MaskEffect)Random.Range(0, 8); // For now, only the most basic effects are used
+
+                maskRules.Add((maskId, newRule));
+            }
+        }
+    }
+
+    //private MaskController GenerateMask()
+    //{
+    //    var baseMask = baseMasks[Random.Range(0, baseMasks.Count)];
+    //    var partsIncluded = 1 + Random.Range(0, 3);
+        
+    //}
 
     public void ProgressTime()
     {
@@ -278,6 +330,7 @@ public class GameManager : Singleton<GameManager>
         sanity = initialSanity;
         collectedTotalBaseValue = 0;
         collectedTotalBonusValue = 0;
+        GenerateRuleSet();
         GameRunning = true;
     }
 
