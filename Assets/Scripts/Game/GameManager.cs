@@ -112,7 +112,7 @@ public class GameManager : Singleton<GameManager>
 
             currentMask.inspecting = false;
             currentMask.discarded = true;
-            AudioManager.Instance.PlaySound("event:/SFX/Interactions/sfx_door_break");
+            AudioManager.Instance.PlaySound("event:/SFX/Player/maskDestroy");
             UIManager.Instance.CreatePopup("You destroy the mask...");
         };
 
