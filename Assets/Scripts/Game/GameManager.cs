@@ -150,15 +150,17 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log($"Initial time ticks: {timeTicksLeft}");
 
-        // Testing mostly!
-        var children = masksContainer.transform.Cast<Transform>().ToArray();
-        foreach (Transform child in children)
+        var maskX = 0;
+        var maskDeltaX = 5;
+
+        while (GameRunning)
         {
+            var mask = GenerateMask();
+
             // Move to the mask's position
-            McTransform.DOMoveX(child.position.x, duration: 1f);
+            McTransform.DOMoveX(maskX, duration: 1f);
 
             // Start inspection the mask and stop to wait until it's done
-            var mask = child.GetComponent<MaskController>();
             currentMask = mask;
             baseValueText.text = $"Mask base value: {(mask.id + 1) * 1000} MuskDollars";
             mask.Init();
@@ -189,10 +191,11 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-    
             // We don't need the object anymore
-            child.DOKill();
-            Destroy(child.gameObject);
+            mask.DOKill();
+            Destroy(mask.gameObject);
+
+            maskX += maskDeltaX;
         }
 
         ExitGame();
@@ -284,7 +287,7 @@ public class GameManager : Singleton<GameManager>
     private MaskController GenerateMask()
     {
         var numbers = new List<int> { 0, 1, 2, 3, 4 };
-        var maxNum = numbers.Last() + 1;
+        var maxNum = numbers.Count;
         var numbersInRandOrder = new List<int>(maxNum);
 
         for (int i = 0; i < maxNum; i++)
@@ -296,7 +299,7 @@ public class GameManager : Singleton<GameManager>
 
         bool[] includedMaskParts = new bool[maxNum];
 
-        var mask = Instantiate(baseMasks[Random.Range(0, baseMasks.Count)]);
+        var mask = Instantiate(baseMasks[Random.Range(0, baseMasks.Count)], masksContainer.transform);
         var partsNotIncludedCount = 1 + Random.Range(0, maxNum - 2);
 
         for (int i = 0; i < partsNotIncludedCount; i++)

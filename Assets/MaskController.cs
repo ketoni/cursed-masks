@@ -98,8 +98,13 @@ public class MaskController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var mat = GetComponent<Renderer>().material;
-        mat.color = Color.HSVToRGB(Random.value, 1f, 1f);
+        var rendererExists = TryGetComponent<Renderer>(out var rend);
+
+        if (rendererExists)
+        {
+            var mat = rend.material;
+            mat.color = Color.HSVToRGB(Random.value, 1f, 1f);
+        }
     
         axis = Random.onUnitSphere;
     }

@@ -189,11 +189,12 @@ MonoBehaviour:
   stats: {fileID: 0}
   ruleTexts: []
   inspecting: 0
-  ears: {fileID: 0}
-  eyes: {fileID: 0}
-  horns: {fileID: 0}
-  mouth: {fileID: 0}
-  nose: {fileID: 0}
+  discarded: 0
+  ears: {fileID: 8917973041810904741}
+  eyes: {fileID: 3504049251073744241}
+  horns: {fileID: 3448100977881315906}
+  mouth: {fileID: 9005811867849974555}
+  nose: {fileID: 2441063899128618718}
   eyeLightsContainer: {fileID: 2633520930345503823}
 --- !u!1 &5013216662157225551
 GameObject:
@@ -519,9 +520,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e28e5d18e46681428af0cc7cf472ccc, type: 3}
+--- !u!1 &2441063899128618718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7345875897586288953, guid: 5e28e5d18e46681428af0cc7cf472ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4318479683316656153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3448100977881315906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1455876498964501083, guid: 5e28e5d18e46681428af0cc7cf472ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4318479683316656153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3504049251073744241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 814782503602484584, guid: 5e28e5d18e46681428af0cc7cf472ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4318479683316656153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4351861633550241778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e28e5d18e46681428af0cc7cf472ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4318479683316656153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8917973041810904741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4598927976242692420, guid: 5e28e5d18e46681428af0cc7cf472ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4318479683316656153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9005811867849974555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5122070835978652418, guid: 5e28e5d18e46681428af0cc7cf472ccc,
     type: 3}
   m_PrefabInstance: {fileID: 4318479683316656153}
   m_PrefabAsset: {fileID: 0}
