@@ -241,7 +241,7 @@ public class GameManager : Singleton<GameManager>
         {
             // The rules for generating mask rules:
             // - At least one key rule per base mask
-            // - Only one rule per part X & part Y combo (?)
+            // - [NOT USED] Only one rule per part X & part Y combo
             // - Part X and part Y must not be the same
             // - Part X is always required, part Y may be disallowed
 
@@ -275,12 +275,31 @@ public class GameManager : Singleton<GameManager>
         return rule;
     }
 
-    //private MaskController GenerateMask()
-    //{
-    //    var baseMask = baseMasks[Random.Range(0, baseMasks.Count)];
-    //    var partsIncluded = 1 + Random.Range(0, 3);
-        
-    //}
+    private MaskController GenerateMask()
+    {
+        var numbers = new List<int> { 0, 1, 2, 3, 4 };
+        var maxNum = numbers.Last() + 1;
+        var numbersInRandOrder = new List<int>(maxNum);
+
+        for (int i = 0; i < maxNum; i++)
+        {
+            var possibleNumbers = numbers.Where(n => !numbersInRandOrder.Contains(n)).ToList();
+            var num = possibleNumbers[Random.Range(0, possibleNumbers.Count())];
+            numbersInRandOrder.Add(num);
+        }
+
+        bool[] includedMaskParts = new bool[maxNum];
+
+        var mask = Instantiate(baseMasks[Random.Range(0, baseMasks.Count)]);
+        var partsNotIncludedCount = 1 + Random.Range(0, maxNum - 2);
+
+        for (int i = 0; i < partsNotIncludedCount; i++)
+        {
+            mask.GetModelFeature((MaskFeature)numbersInRandOrder[i]).SetActive(false);
+        }
+
+        return mask;
+    }
 
     public void ProgressTime()
     {
