@@ -278,8 +278,8 @@ public class GameManager : Singleton<GameManager>
     private MaskRule GenerateRule(bool forceKeyRule)
     {
         var rule = new MaskRule();
-        rule.first = (MaskFeature)Random.Range(1, 5);
-        rule.second = (MaskFeature)Random.Range(0, 5);
+        rule.first = (MaskFeature)Random.Range(1, 6);
+        rule.second = (MaskFeature)Random.Range(0, 6);
 
         if (rule.second == rule.first)
         {
