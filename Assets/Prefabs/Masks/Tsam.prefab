@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 3979336713739890464}
   - component: {fileID: 6337487774371784106}
   m_Layer: 0
-  m_Name: Mask1
+  m_Name: Tsam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
