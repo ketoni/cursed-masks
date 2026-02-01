@@ -14,7 +14,7 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
     #if !UNITY_EDITOR
-        HideAndLockCursor();
+        //HideAndLockCursor();
     #endif
 
     }

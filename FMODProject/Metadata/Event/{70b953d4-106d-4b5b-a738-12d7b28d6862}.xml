@@ -56,7 +56,11 @@
 			<destination>{81feba84-7290-4654-9983-3814c516d8da}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{e8c320dd-e698-4e76-8ed5-271ba5672a42}" />
+	<object class="EventAutomatableProperties" id="{e8c320dd-e698-4e76-8ed5-271ba5672a42}">
+		<property name="triggerCooldown">
+			<value>120</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{0e5a4a7e-0578-40c1-a2f7-85647eb81cde}" />
 	<object class="GroupTrack" id="{8cfdbce5-420b-4f5a-b153-f548cadc92d2}">
 		<relationship name="modules">
@@ -72,6 +76,12 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{a18d4b46-49e0-484d-bc2b-54c1b654558e}">
+		<property name="volume">
+			<value>-3.5</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{3c1daf1d-21e2-4cd4-923d-2318d0fb76eb}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{26c901c4-4bfd-4524-8e79-c09bc8a25edd}</destination>
 		</relationship>
@@ -106,6 +116,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{8088a018-1d45-4018-9b84-a83c673295e9}">
+		<property name="volume">
+			<value>-3.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -118,6 +131,14 @@
 		<relationship name="output">
 			<destination>{a18d4b46-49e0-484d-bc2b-54c1b654558e}</destination>
 		</relationship>
+	</object>
+	<object class="RandomizerModulator" id="{3c1daf1d-21e2-4cd4-923d-2318d0fb76eb}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>4.5</value>
+		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{26c901c4-4bfd-4524-8e79-c09bc8a25edd}">
 		<relationship name="effects">
