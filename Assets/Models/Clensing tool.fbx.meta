@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: 95953fcb75034154a94ef5fb917d4c42
+guid: 3efcd2b6fdd40144b90fe27c97f1803d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor
-    second: {fileID: 2100000, guid: 3c94d5e1b1ed10744b4f666225d98c20, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Pillars
-    second: {fileID: 2100000, guid: 29e2a891db900c64d9ec5caa4d97396f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Roof
-    second: {fileID: 2100000, guid: 3ab7d6e5239b16b449ac5efeddbbf7a9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Walls
-    second: {fileID: 2100000, guid: 9361d29aabfafb0419f2a5aaaaa13227, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
