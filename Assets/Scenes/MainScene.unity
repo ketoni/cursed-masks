@@ -213,7 +213,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -442,7 +441,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -910,6 +908,71 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 060f82e287dc8f3479679ac7ec2b23ee, type: 2}
+--- !u!1 &881492016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881492017}
+  - component: {fileID: 881492018}
+  m_Layer: 0
+  m_Name: Whispers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &881492017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881492016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2294828864769201579}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &881492018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881492016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -999152107
+      Data2: 1145879403
+      Data3: 414582419
+      Data4: 1984189675
+    Path: event:/SFX/Player/Whispers
+  Event: 
+  PlayEvent: 11
+  StopEvent: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params:
+  - Name: Sanity
+    Value: 0.4
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &884574893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,7 +1139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -1317,7 +1379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -1446,7 +1507,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 0}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -1581,7 +1641,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 11400000, guid: 2d651847487821040b376fec237a14a5, type: 2}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -1714,11 +1773,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -2096333789
+      Data2: 1223203688
+      Data3: 788418185
+      Data4: -942802791
+    Path: event:/Music/music_cursedMasks
   Event: 
   PlayEvent: 11
   StopEvent: 12
@@ -1872,7 +1931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 11400000, guid: 3fab161446693894d9ec15782146240d, type: 2}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -2136,7 +2194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   stats: {fileID: 11400000, guid: 3fab161446693894d9ec15782146240d, type: 2}
-  ruleTexts: []
   inspecting: 0
   discarded: 0
   ears: {fileID: 0}
@@ -2575,6 +2632,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1385472170}
+  - {fileID: 881492017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2294828864769201580
