@@ -20,6 +20,7 @@ public class MaskController : MonoBehaviour
         Special
     }
 
+    public int id;
     public MaskStats stats;
     public List<MaskRuleTextScriptableObject> ruleTexts;
 
@@ -168,18 +169,7 @@ public class MaskController : MonoBehaviour
         return relevantRuleTexts[Random.Range(0, relevantRuleTexts.Count)].text;
     }
 
-    internal string Analyze(MaskPart feature)
-    {
-        var part = feature.gameObject;
-        var model = part.GetComponent<MeshRenderer>();
-
-        // Flash the part of the mask visually
-        ModelAnimation(model.material);
-
-        return "lol";
-    }
-
-    private void ModelAnimation(Material mat)
+    public void ModelAnimation(Material mat)
     {
         // Kill any running tweens on this material
         mat.DOKill();

@@ -1,8 +1,10 @@
+using Assets.Scripts.Generic;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Generic;
-using DG.Tweening;
+using System.Text;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
@@ -101,20 +103,20 @@ public class GameManager : Singleton<GameManager>
             currentMask.CurseLevel--;
         };
 
-        InputManager.Player.Analyze.performed += _ =>
-        {
-            if (!GameRunning)
-            {
-                return;
-            }
+        //InputManager.Player.Analyze.performed += _ =>
+        //{
+        //    if (!GameRunning)
+        //    {
+        //        return;
+        //    }
 
-            // TODO: Get clicked feature
-            var text = currentMask.GetRandomRelevantRuleText(MaskFeature.Nose);
-            if (text != null)
-            {
-                DialogueManager.Instance.ShowText(text);
-            }
-        };
+        //    // TODO: Get clicked feature
+        //    var text = currentMask.GetRandomRelevantRuleText(MaskFeature.Nose);
+        //    if (text != null)
+        //    {
+        //        DialogueManager.Instance.ShowText(text);
+        //    }
+        //};
 
         InputManager.Player.Click.performed += _ =>
         {
@@ -124,7 +126,7 @@ public class GameManager : Singleton<GameManager>
             {
                 if (hit.transform.TryGetComponent<MaskPart>(out var part))
                 {
-                    var hint = currentMask.Analyze(part);
+                    var hint = AnalyzeAndGetText(currentMask, part);
                     DialogueManager.Instance.ShowText(hint);
                 } 
             }
@@ -284,6 +286,54 @@ public class GameManager : Singleton<GameManager>
                 CheckEscape();
             }
         }
+    }
+
+    private string AnalyzeAndGetText(MaskController mask, MaskPart part)
+    {
+        var analyzedFeature = part.part;
+        var model = part.GetComponent<MeshRenderer>();
+
+        // Flash the part of the mask visually
+        mask.ModelAnimation(model.material);
+
+        var text = GetRandomRelevantRuleText(mask, analyzedFeature);
+        return text == null
+            ? "There's nothing interesting about this."
+            : text;
+    }
+
+    private string GetRandomRelevantRuleText(MaskController mask, MaskFeature feature)
+    {
+        if (feature == MaskFeature.None)
+        {
+            return null;
+        }
+
+        var relevantRules = maskRules
+            .Where(r => r.Rule.first == feature || r.Rule.second == feature).ToList();
+
+        if (relevantRules == null || relevantRules.Count == 0)
+        {
+            return null;
+        }
+
+        var randomRule = relevantRules[Random.Range(0, relevantRules.Count)];
+        return BuildRuleText(randomRule.Rule);
+    }
+
+    private string BuildRuleText(MaskRule rule)
+    {
+        var ruleText = new StringBuilder();
+        ruleText.Append($"If {rule.first} and ");
+
+        if (!rule.requireSecond)
+        {
+            ruleText.Append($"not ");
+        }
+
+        ruleText.AppendLine($"{rule.second}, {rule.effect}");
+
+        return ruleText.ToString();
     }
 
     public void CheckEscape()
