@@ -156,14 +156,21 @@ public class GameManager : Singleton<GameManager>
         var movedDist = 0;
         var maskDeltaX = 3;
 
+        bool firstMask = true;
+
         while (GameRunning)
         {
             var mask = GenerateMask();
             currentMask = mask;
-            mask.transform.position += new Vector3(movedDist, 0, 0);
+            //mask.transform.position += new Vector3(movedDist, 0, 0);
 
-            // Move to the mask's position
-            McTransform.DOMoveX(maskX, duration: 1f);
+            if (firstMask)
+            {
+                // Move to the mask's position
+                McTransform.DOMoveX(maskX, duration: 1f);
+
+                firstMask = false;
+            }
 
             // Start inspection the mask and stop to wait until it's done
             baseValueText.text = $"Mask base value: {(mask.id + 1) * 1000} MuskDollars";

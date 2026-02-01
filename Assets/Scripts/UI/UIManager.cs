@@ -28,7 +28,7 @@ public class UIManager : Singleton<UIManager>
         // Auto dismiss or dismiss via action?
         if (dismissAction == null)
         {
-            DOTween.Sequence().AppendInterval(5).AppendCallback(() => popup.Dismiss());
+            DOTween.Sequence().AppendInterval(0.8f).AppendCallback(() => popup.Dismiss());
         }
         else
         {
